@@ -28,16 +28,4 @@ router.post("/", async (req, res) => {
   }
 });
 
-/* 
-// Gets single User
-router.get("/:userID", async (req, res) => {
-  try {
-    const usersid = await User.find({ Username: "username" });
-    res.json(usersid);
-  } catch (err) {
-    res.json({ message: err });
-  }
-});
- */
-
 module.exports = router;
