@@ -31,7 +31,7 @@ router.post("/", async (req, res) => {
 //Get Specific Product
 router.get("/:productId", async (req, res) => {
   try {
-    const product = await Product.findById(req.params.productId);
+    const product = await Product.find({ Product_name: req.params.productId });
     res.json(product);
   } catch (err) {
     res.json({ message: err });
