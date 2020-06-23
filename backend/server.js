@@ -2,9 +2,9 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const exphbs = require("express-handlebars");
 const connectDB = require("./models/MongoDB");
 const session = require("express-session");
+const cors = require("cors");
 const MongoStore = require("connect-mongo")(session);
 
 const passport = require("passport");
@@ -13,14 +13,11 @@ require("./passport.js")(passport);
 require("dotenv/config");
 
 // parse application/json
+app.use(cors());
 app.use(bodyParser.json());
 
 // Connect to MongoDB
 connectDB();
-
-// Handlebars
-app.engine(".hbs", exphbs({ defaultLayout: "main", extname: ".hbs" }));
-app.set("view engine", ".hbs");
 
 // Sessions
 app.use(
