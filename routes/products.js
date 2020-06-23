@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 // Submits a product
 router.post("/", async (req, res) => {
   const post = new Product({
-    Product_name: req.body.Product_name,
+    product_name: req.body.product_name,
     description: req.body.description,
     cost: req.body.cost,
   });
