@@ -18,6 +18,7 @@ router.post("/", async (req, res) => {
     product_name: req.body.product_name,
     description: req.body.description,
     cost: req.body.cost,
+    manf_country: req.body.manf_country,
   });
 
   try {
