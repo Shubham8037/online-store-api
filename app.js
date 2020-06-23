@@ -35,13 +35,19 @@ app.use(passport.session());
 // Routes
 app.use("/products", require("./routes/products"));
 app.use("/persons", require("./routes/persons"));
+
+// Google Oauth Route
 app.use("/auth", require("./routes/auth"));
 
 // ROUTES
 app.get("/", (req, res) => {
   res.send(
-    "<div><center><h1>WELCOME</h1><br><h3>Google OAuth at /auth/google/<h3></center></div>"
+    "<div><center><h1>WELCOME</h1><br><h3>Google OAuth implemented at /auth/google/<h3></center></div>"
   );
+});
+
+app.get("*", (req, res) => {
+  res.send("<center><h1>NOTHING HERE</h1></center>");
 });
 
 // Listening to port here

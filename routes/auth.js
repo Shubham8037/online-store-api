@@ -2,6 +2,8 @@ const express = require("express");
 const passport = require("passport");
 const router = express.Router();
 
+const { ensureAuth } = require("../middleware/auth");
+
 // Google Auth
 router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
 
@@ -16,25 +18,12 @@ router.get(
 );
 
 router.get("/failure", (req, res) => {
-  res.send("Login Failed");
+  res.send("<center><h1>Login Failed</h1></center>");
 });
 
-/* 
-const isLoggedIn = (req, res, next) => {
-  if (req.user) {
-    next();
-  } else {
-    res.sendStatus(401);
-  }
-};
-*/
-
-router.get(
-  "/success",
-  /* isLoggedIn, */ (req, res) => {
-    res.send(`WELCOME TO THE PARTY, ${req.user.displayName}!!!`);
-  }
-);
+router.get("/success", ensureAuth, (req, res) => {
+  res.send(`WELCOME TO THE PARTY, ${req.user.displayName}!!!`);
+});
 
 router.get("/logout", (req, res) => {
   req.logout();
