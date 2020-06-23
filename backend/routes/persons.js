@@ -15,9 +15,9 @@ router.get("/", async (req, res) => {
 // Creates New Person
 router.post("/", async (req, res) => {
   const person = new Person({
-    First_name: req.body.First_name,
-    Last_name: req.body.Last_name,
-    Username: req.body.Username,
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    username: req.body.username,
   });
 
   try {

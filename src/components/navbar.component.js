@@ -9,8 +9,8 @@ export default class Navbar extends Component {
           Online-Store
         </Link>
 
-        <div className="collpase navbar-collapse">
-          <ul className="navbar-nav mr-auto">
+        <div className="collapse navbar-collapse">
+          <ul className="navbar-nav ml-auto">
             <li className="navbar-item">
               <Link to="/person/create/" className="nav-link">
                 Create Person
