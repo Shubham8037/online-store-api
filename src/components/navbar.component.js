@@ -28,12 +28,6 @@ export default class Navbar extends Component {
                 Edit Product
               </Link>
             </li>
-
-            <li className="navbar-item">
-              <Link to="/product/delete" className="nav-link">
-                Delete Product
-              </Link>
-            </li>
           </ul>
         </div>
       </nav>

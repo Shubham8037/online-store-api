@@ -6,6 +6,7 @@ const ProductSchema = mongoose.Schema(
     description: { type: String, required: true, trim: true },
     cost: { type: Number, required: true, trim: true },
     manf_country: { type: String, required: true, trim: true },
+    date: { type: Date, default: Date.now },
   },
   { timestamps: true }
 );
