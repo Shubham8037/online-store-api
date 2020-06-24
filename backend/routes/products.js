@@ -50,11 +50,18 @@ router.delete("/:productId", async (req, res) => {
 });
 
 //Update a Specific Product
-router.patch("/:productId", async (req, res) => {
+router.post("/:productId", async (req, res) => {
   try {
     const updatedProduct = await Product.updateOne(
       { _id: req.params.productId },
-      { $set: { cost: req.body.cost } }
+      {
+        $set: {
+          product_name: req.body.product_name,
+          description: req.body.description,
+          cost: req.body.cost,
+          manf_country: req.body.manf_country,
+        },
+      }
     );
     res.json(updatedProduct);
   } catch (err) {

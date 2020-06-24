@@ -13,12 +13,12 @@ export default class EditProduct extends Component {
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
+      productId: this.props.location.productProp.product._id,
       product_name: "",
       description: "",
       cost: "",
       manf_country: "",
       date: new Date(),
-      users: [],
     };
   }
 
@@ -34,19 +34,6 @@ export default class EditProduct extends Component {
         });
       })
       .catch(function (error) {
-        console.log(error);
-      });
-
-    axios
-      .get("http://localhost:5000/persons/")
-      .then((response) => {
-        if (response.data.length > 0) {
-          this.setState({
-            persons: response.data.map((person) => person.username),
-          });
-        }
-      })
-      .catch((error) => {
         console.log(error);
       });
   }
@@ -83,8 +70,8 @@ export default class EditProduct extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-
     const product = {
+      productId: this.state.productId,
       product_name: this.state.product_name,
       description: this.state.description,
       cost: this.state.cost,
@@ -92,15 +79,9 @@ export default class EditProduct extends Component {
       date: this.state.date,
     };
 
-    console.log(product);
-
     axios
-      .post(
-        "http://localhost:5000/products/update/" + this.props.match.params.id,
-        product
-      )
+      .post("http://localhost:5000/products/" + product.productId, product)
       .then((res) => console.log(res.data));
-
     window.location = "/";
   }
 
@@ -111,21 +92,12 @@ export default class EditProduct extends Component {
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label>Product Name: </label>
-
-            <select
-              ref="userInput"
+            <input
+              type="text"
               required
-              value={this.state.product_name}
+              text={this.state.product_name}
               onChange={this.onChangeProductName}
-            >
-              {this.state.persons.map(function (person) {
-                return (
-                  <option key={person} value={person}>
-                    {person}
-                  </option>
-                );
-              })}
-            </select>
+            />
           </div>
 
           <div className="form-group">
@@ -133,7 +105,7 @@ export default class EditProduct extends Component {
             <input
               type="text"
               required
-              value={this.state.description}
+              text={this.state.description}
               onChange={this.onChangeDescription}
             />
           </div>

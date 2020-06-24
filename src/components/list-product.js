@@ -10,7 +10,15 @@ const Product = (props) => (
     <td>{props.product.manf_country}</td>
     <td>{props.product.date.substring(0, 10)}</td>
     <td>
-      <Link to={"/product/update/" + props.product._id}>Edit</Link> |
+      <Link
+        to={{
+          pathname: "/product/update/" + props.product._id,
+          productProp: props,
+        }}
+      >
+        Edit
+      </Link>{" "}
+      |
       <a
         href="/"
         onClick={() => {
