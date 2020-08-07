@@ -40,6 +40,10 @@ export default class CreateProduct extends Component {
     });
   }
 
+  closeFormHandler = () => {
+   this.props.history.push("/")
+  }
+
   onSubmit(e) {
     e.preventDefault();
 
@@ -54,6 +58,7 @@ export default class CreateProduct extends Component {
 
     axios.post("http://localhost:5000/products/", product).then((res) => {
       console.log(res.data);
+      this.props.addToProductsHandler(res.data);
       this.setState({
         product_name: "",
         description: "",
@@ -65,13 +70,11 @@ export default class CreateProduct extends Component {
 
   render() {
     return (
-      <div>
-        <center>
-          <h3>Create New Product</h3>
-          <br />
-          <br />
+      <div class="formContainer">
+         <p className="cancel" onClick={this.closeFormHandler}>X </p>
+          <h3 class="form-heading">Create New Product</h3>
           <form onSubmit={this.onSubmit}>
-            <div className="form-group">
+                
               <label>Product Name: </label>
               <input
                 type="text"
@@ -79,8 +82,7 @@ export default class CreateProduct extends Component {
                 value={this.state.product_name}
                 onChange={this.onChangeProductName}
               />
-              <br />
-              <br />
+          
               <label>Product Description: </label>
               <input
                 type="text"
@@ -88,8 +90,7 @@ export default class CreateProduct extends Component {
                 value={this.state.description}
                 onChange={this.onChangeDescription}
               />
-              <br />
-              <br />
+          
               <label>Cost of product: </label>
               <input
                 type="text"
@@ -97,8 +98,7 @@ export default class CreateProduct extends Component {
                 value={this.state.cost}
                 onChange={this.onChangeCost}
               />
-              <br />
-              <br />
+          
               <label>Manufacturing Country: </label>
               <input
                 type="text"
@@ -106,17 +106,15 @@ export default class CreateProduct extends Component {
                 value={this.state.manf_country}
                 onChange={this.onChangeManfCountry}
               />
-            </div>
-            <br />
-            <div className="form-group">
+          
               <input
                 type="submit"
                 value="Create Product"
                 className="btn btn-primary"
               />
-            </div>
+          
           </form>
-        </center>
+        
       </div>
     );
   }

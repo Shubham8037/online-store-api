@@ -13,7 +13,7 @@ export default class EditProduct extends Component {
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      productId: this.props.location.productProp.product._id,
+      productId: this.props.match.params.id,
       product_name: "",
       description: "",
       cost: "",
@@ -26,11 +26,13 @@ export default class EditProduct extends Component {
     axios
       .get("http://localhost:5000/products/" + this.props.match.params.id)
       .then((response) => {
+        console.log(response)
         this.setState({
-          username: response.data.username,
+          productId : response.data._id,
+          product_name: response.data.product_name,
           description: response.data.description,
-          duration: response.data.duration,
-          date: new Date(response.data.date),
+          cost: response.data.cost,
+          manf_country: response.data.manf_country,
         });
       })
       .catch(function (error) {
@@ -76,41 +78,42 @@ export default class EditProduct extends Component {
       description: this.state.description,
       cost: this.state.cost,
       manf_country: this.state.manf_country,
-      date: this.state.date,
     };
 
     axios
       .post("http://localhost:5000/products/" + product.productId, product)
-      .then((res) => console.log(res.data));
-    window.location = "/";
+      .then((res) =>{
+        console.log(res.data)
+        this.props.updateProductHandler(res.data);
+        this.props.history.push("/")
+      } );
+      
   }
 
   render() {
     return (
-      <div>
+      <div className="formContainer">
         <h3>Edit Product Log</h3>
         <form onSubmit={this.onSubmit}>
-          <div className="form-group">
+       
             <label>Product Name: </label>
             <input
               type="text"
               required
-              text={this.state.product_name}
+              value={this.state.product_name}
               onChange={this.onChangeProductName}
             />
-          </div>
-
-          <div className="form-group">
+         
             <label>Product Description: </label>
             <input
               type="text"
               required
-              text={this.state.description}
+              value={this.state.description}
               onChange={this.onChangeDescription}
             />
-          </div>
+         
 
-          <div className="form-group">
+         
             <label>Cost of product: </label>
             <input
               type="text"
@@ -118,9 +121,9 @@ export default class EditProduct extends Component {
               value={this.state.cost}
               onChange={this.onChangeCost}
             />
-          </div>
+         
 
-          <div className="form-group">
+         
             <label>Manufacturing Country: </label>
             <input
               type="text"
@@ -128,15 +131,13 @@ export default class EditProduct extends Component {
               value={this.state.manf_country}
               onChange={this.onChangeManfCountry}
             />
-          </div>
-
-          <div className="form-group">
+         
             <input
               type="submit"
               value="Edit Product Log"
               className="btn btn-primary"
             />
-          </div>
+         
         </form>
       </div>
     );

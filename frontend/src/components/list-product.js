@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
+import "./css/table.css"
 const Product = (props) => (
   <tr>
     <td>{props.product.product_name}</td>
@@ -11,6 +11,7 @@ const Product = (props) => (
     <td>{props.product.date.substring(0, 10)}</td>
     <td>
       <Link
+      className="edit"
         to={{
           pathname: "/product/update/" + props.product._id,
           productProp: props,
@@ -18,15 +19,16 @@ const Product = (props) => (
       >
         Edit
       </Link>{" "}
-      |
-      <a
-        href="/"
+   
+      <Link
+      className="delete"
+        to="/"
         onClick={() => {
           props.deleteProduct(props.product._id);
         }}
       >
         Delete
-      </a>
+      </Link>
     </td>
   </tr>
 );
@@ -40,20 +42,12 @@ export default class ListProduct extends Component {
     this.state = { products: [] };
   }
 
-  componentDidMount() {
-    axios
-      .get("http://localhost:5000/products/")
-      .then((response) => {
-        this.setState({ products: response.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
+  
   deleteProduct(id) {
+
     axios.delete("http://localhost:5000/products/" + id).then((response) => {
       console.log(response.data);
+      this.props.deleteProductHandler(id);
     });
 
     this.setState({
@@ -62,7 +56,8 @@ export default class ListProduct extends Component {
   }
 
   productList() {
-    return this.state.products.map((currentproduct) => {
+    
+    return this.props.products.map((currentproduct) => {
       return (
         <Product
           product={currentproduct}
@@ -76,9 +71,9 @@ export default class ListProduct extends Component {
   render() {
     return (
       <div>
-        <h3>Logged Products</h3>
+        <h3 className="heading-tertiary">Logged Products</h3>
         <table className="table">
-          <thead className="thead-light">
+          <thead className="thead">
             <tr>
               <th>Product Name</th>
               <th>Description</th>

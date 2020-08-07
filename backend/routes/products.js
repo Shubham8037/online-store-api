@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
 //Get Specific Product
 router.get("/:productId", async (req, res) => {
   try {
-    const product = await Product.find({ Product_name: req.params.productId });
+    const product = await Product.findOne({ _id: req.params.productId });
     res.json(product);
   } catch (err) {
     res.json({ message: err });
@@ -49,24 +49,22 @@ router.delete("/:productId", async (req, res) => {
   }
 });
 
-//Update a Specific Product
-router.post("/:productId", async (req, res) => {
-  try {
-    const updatedProduct = await Product.updateOne(
-      { _id: req.params.productId },
-      {
-        $set: {
-          product_name: req.body.product_name,
-          description: req.body.description,
-          cost: req.body.cost,
-          manf_country: req.body.manf_country,
-        },
-      }
-    );
-    res.json(updatedProduct);
-  } catch (err) {
-    res.json({ message: err });
-  }
+// Update a Specific Product
+router.post("/:productId", (req, res) => {
+  Product.findOne({ _id: req.params.productId })
+    .then((result) => {
+      result.product_name = req.body.product_name;
+      result.description = req.body.description;
+      result.cost = req.body.cost;
+      result.manf_country = req.body.manf_country;
+      return result.save();
+    })
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.json({ message: err });
+    });
 });
 
 module.exports = router;

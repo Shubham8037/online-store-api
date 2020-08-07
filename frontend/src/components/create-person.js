@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-
+import "./css/form.css"
 export default class CreatePerson extends Component {
   constructor(props) {
     super(props);
@@ -51,18 +51,15 @@ export default class CreatePerson extends Component {
         last_name: "",
         username: "",
       });
+      this.props.history.replace("/");
     });
   }
 
   render() {
-    return (
-      <div>
-        <center>
-          <h3>Create New User</h3>
-          <br />
-          <br />
+    const result =<div className="formContainer">
+          <h3 className="form-heading">Create New User</h3>
           <form onSubmit={this.onSubmit}>
-            <div className="form-group">
+        
               <label>First Name: </label>
               <input
                 type="text"
@@ -70,8 +67,8 @@ export default class CreatePerson extends Component {
                 value={this.state.first_name}
                 onChange={this.onChangeFirstName}
               />
-              <br />
-              <br />
+        
+        
               <label>Last Name: </label>
               <input
                 type="text"
@@ -79,8 +76,7 @@ export default class CreatePerson extends Component {
                 value={this.state.last_name}
                 onChange={this.onChangeLastName}
               />
-              <br />
-              <br />
+        
               <label>Username: </label>
               <input
                 type="text"
@@ -88,18 +84,15 @@ export default class CreatePerson extends Component {
                 value={this.state.username}
                 onChange={this.onChangeUsername}
               />
-            </div>
-            <br />
-            <div className="form-group">
+        
               <input
                 type="submit"
                 value="Create User"
                 className="btn btn-primary"
               />
-            </div>
+        
           </form>
-        </center>
-      </div>
-    );
+      </div> 
+    return result
   }
 }
