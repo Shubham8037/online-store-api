@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import "./css/form.css"
+import "./css/form.css";
 export default class CreatePerson extends Component {
   constructor(props) {
     super(props);
@@ -33,6 +33,10 @@ export default class CreatePerson extends Component {
     });
   }
 
+  closeFormHandler = () => {
+    this.props.history.push("/");
+  };
+
   onSubmit(e) {
     e.preventDefault();
 
@@ -56,43 +60,45 @@ export default class CreatePerson extends Component {
   }
 
   render() {
-    const result =<div className="formContainer">
-          <h3 className="form-heading">Create New User</h3>
-          <form onSubmit={this.onSubmit}>
-        
-              <label>First Name: </label>
-              <input
-                type="text"
-                required
-                value={this.state.first_name}
-                onChange={this.onChangeFirstName}
-              />
-        
-        
-              <label>Last Name: </label>
-              <input
-                type="text"
-                required
-                value={this.state.last_name}
-                onChange={this.onChangeLastName}
-              />
-        
-              <label>Username: </label>
-              <input
-                type="text"
-                required
-                value={this.state.username}
-                onChange={this.onChangeUsername}
-              />
-        
-              <input
-                type="submit"
-                value="Create User"
-                className="btn btn-primary"
-              />
-        
-          </form>
-      </div> 
-    return result
+    const result = (
+      <div className="formContainer">
+        <h3 className="form-heading">Create New User</h3>
+        <p className="cancel" onClick={this.closeFormHandler}>
+          X{" "}
+        </p>
+        <form onSubmit={this.onSubmit}>
+          <label>First Name: </label>
+          <input
+            type="text"
+            required
+            value={this.state.first_name}
+            onChange={this.onChangeFirstName}
+          />
+
+          <label>Last Name: </label>
+          <input
+            type="text"
+            required
+            value={this.state.last_name}
+            onChange={this.onChangeLastName}
+          />
+
+          <label>Username: </label>
+          <input
+            type="text"
+            required
+            value={this.state.username}
+            onChange={this.onChangeUsername}
+          />
+
+          <input
+            type="submit"
+            value="Create User"
+            className="btn btn-primary"
+          />
+        </form>
+      </div>
+    );
+    return result;
   }
 }

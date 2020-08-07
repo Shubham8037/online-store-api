@@ -41,8 +41,8 @@ export default class CreateProduct extends Component {
   }
 
   closeFormHandler = () => {
-   this.props.history.push("/")
-  }
+    this.props.history.push("/");
+  };
 
   onSubmit(e) {
     e.preventDefault();
@@ -65,56 +65,56 @@ export default class CreateProduct extends Component {
         cost: "",
         manf_country: "",
       });
+      this.props.history.push("/");
     });
   }
 
   render() {
     return (
       <div class="formContainer">
-         <p className="cancel" onClick={this.closeFormHandler}>X </p>
-          <h3 class="form-heading">Create New Product</h3>
-          <form onSubmit={this.onSubmit}>
-                
-              <label>Product Name: </label>
-              <input
-                type="text"
-                required
-                value={this.state.product_name}
-                onChange={this.onChangeProductName}
-              />
-          
-              <label>Product Description: </label>
-              <input
-                type="text"
-                required
-                value={this.state.description}
-                onChange={this.onChangeDescription}
-              />
-          
-              <label>Cost of product: </label>
-              <input
-                type="text"
-                required
-                value={this.state.cost}
-                onChange={this.onChangeCost}
-              />
-          
-              <label>Manufacturing Country: </label>
-              <input
-                type="text"
-                required
-                value={this.state.manf_country}
-                onChange={this.onChangeManfCountry}
-              />
-          
-              <input
-                type="submit"
-                value="Create Product"
-                className="btn btn-primary"
-              />
-          
-          </form>
-        
+        <p className="cancel" onClick={this.closeFormHandler}>
+          X{" "}
+        </p>
+        <h3 class="form-heading">Create New Product</h3>
+        <form onSubmit={this.onSubmit}>
+          <label>Product Name: </label>
+          <input
+            type="text"
+            required
+            value={this.state.product_name}
+            onChange={this.onChangeProductName}
+          />
+
+          <label>Product Description: </label>
+          <input
+            type="text"
+            required
+            value={this.state.description}
+            onChange={this.onChangeDescription}
+          />
+
+          <label>Cost of product: </label>
+          <input
+            type="text"
+            required
+            value={this.state.cost}
+            onChange={this.onChangeCost}
+          />
+
+          <label>Manufacturing Country: </label>
+          <input
+            type="text"
+            required
+            value={this.state.manf_country}
+            onChange={this.onChangeManfCountry}
+          />
+
+          <input
+            type="submit"
+            value="Create Product"
+            className="btn btn-primary"
+          />
+        </form>
       </div>
     );
   }
